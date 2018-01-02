@@ -1,0 +1,67 @@
+FROM ubuntu:16.04
+MAINTAINER Koen De Keyser <koen.dekeyser@gmail.com>
+
+
+RUN apt-get update -q && apt-get install -y --no-install-recommends \
+      software-properties-common \
+      wget \
+      fish \
+      tmux \
+      vim-gnome \
+      libnotify4 \
+      libxkbfile1 \
+      libxss1 \
+      libxtst6 \
+      libnss3 \
+      libtinfo-dev \
+      zip \
+      unzip \
+      net-tools \
+      curl \
+      sudo \
+      man \
+      firefox \
+      xvfb \
+      libsecret-1-0 \
+      openjdk-8-jre \
+      make \
+      git \
+      gcc \
+      g++
+
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+
+RUN apt-get update -q && apt-get install -y --no-install-recommends \
+      google-chrome-stable \
+      nodejs
+
+RUN groupadd -g 1000 developer && useradd -u 1000 -g 1000 developer
+RUN echo "developer:developer" | chpasswd 
+RUN adduser developer sudo 
+RUN mkdir /home/developer
+
+RUN chown developer /home/developer
+
+ENV VSCODE_VERSION	1.18.1
+RUN wget --progress=bar:force -O /tmp/vscode.deb https://vscode-update.azurewebsites.net/$VSCODE_VERSION/linux-deb-x64/stable/
+RUN dpkg -i /tmp/vscode.deb && rm /tmp/vscode.deb
+
+RUN wget --progress=bar:force  https://goo.gl/s4o9Vx -O selenium-server-standalone-3.4.0.jar
+RUN chmod +x selenium-server-standalone-3.4.0.jar
+RUN mv selenium-server-standalone-3.4.0.jar /usr/local/bin
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.17.0/geckodriver-v0.17.0-linux64.tar.gz
+RUN tar -xvzf geckodriver-v0.17.0-linux64.tar.gz
+RUN chmod +x geckodriver
+RUN mv geckodriver /usr/local/bin/
+RUN wget https://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip
+RUN unzip chromedriver_linux64.zip
+RUN mv chromedriver /usr/local/bin
+
+RUN npm install -g --unsafe-perm https://github.com/reasonml/reason-cli/archive/3.0.4-bin-linux.tar.gz
+
+USER developer
+
+RUN echo 0 | code --install-extension freebroccolo.reasonml
+

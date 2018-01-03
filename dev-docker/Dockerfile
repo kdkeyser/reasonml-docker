@@ -60,6 +60,7 @@ RUN unzip chromedriver_linux64.zip
 RUN mv chromedriver /usr/local/bin
 
 RUN npm install -g --unsafe-perm https://github.com/reasonml/reason-cli/archive/3.0.4-bin-linux.tar.gz
+RUN npm install -g --unsafe-perm bs-platform
 
 USER developer
 

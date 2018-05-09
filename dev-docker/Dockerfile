@@ -26,7 +26,8 @@ RUN apt-get update -q && apt-get install -y --no-install-recommends \
       make \
       git \
       gcc \
-      g++
+      g++ \
+      ssh
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -63,12 +64,10 @@ RUN wget https://chromedriver.storage.googleapis.com/$CHROMEDRV_VERSION/chromedr
 RUN unzip chromedriver_linux64.zip
 RUN mv chromedriver /usr/local/bin
 
-ENV REASONCLI_VERSION	3.0.5
-RUN npm install -g --unsafe-perm https://github.com/reasonml/reason-cli/archive/$REASONCLI_VERSION-bin-linux.tar.gz
+ENV REASONCLI_VERSION	3.1.0
+RUN npm install npm@latest -g
+RUN npm install -g --unsafe-perm reason-cli@$REASONCLI_VERSION-linux
 RUN npm install -g --unsafe-perm bs-platform
-
-RUN apt-get update -q && apt-get install -y --no-install-recommends \
-    ssh
 
 USER developer
 

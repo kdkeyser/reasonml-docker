@@ -44,22 +44,28 @@ RUN mkdir /home/developer
 
 RUN chown developer /home/developer
 
-ENV VSCODE_VERSION	1.18.1
+ENV VSCODE_VERSION	1.23.0
 RUN wget --progress=bar:force -O /tmp/vscode.deb https://vscode-update.azurewebsites.net/$VSCODE_VERSION/linux-deb-x64/stable/
 RUN dpkg -i /tmp/vscode.deb && rm /tmp/vscode.deb
 
-RUN wget --progress=bar:force  https://goo.gl/s4o9Vx -O selenium-server-standalone-3.4.0.jar
-RUN chmod +x selenium-server-standalone-3.4.0.jar
-RUN mv selenium-server-standalone-3.4.0.jar /usr/local/bin
-RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.17.0/geckodriver-v0.17.0-linux64.tar.gz
-RUN tar -xvzf geckodriver-v0.17.0-linux64.tar.gz
+ENV SELENIUM_VERSION	3.11.0
+RUN wget --progress=bar:force  https://goo.gl/s4o9Vx -O selenium-server-standalone-$SELENIUM_VERSION.jar
+RUN chmod +x selenium-server-standalone-$SELENIUM_VERSION.jar
+RUN mv selenium-server-standalone-$SELENIUM_VERSION.jar /usr/local/bin
+
+ENV GECKODRV_VERSION	0.20.1
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v$GECKODRV_VERSION/geckodriver-v$GECKODRV_VERSION-linux64.tar.gz
+RUN tar -xvzf geckodriver-v$GECKODRV_VERSION-linux64.tar.gz
 RUN chmod +x geckodriver
 RUN mv geckodriver /usr/local/bin/
-RUN wget https://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip
+
+ENV CHROMEDRV_VERSION	2.38
+RUN wget https://chromedriver.storage.googleapis.com/$CHROMEDRV_VERSION/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
 RUN mv chromedriver /usr/local/bin
 
-RUN npm install -g --unsafe-perm https://github.com/reasonml/reason-cli/archive/3.0.4-bin-linux.tar.gz
+ENV REASONCLI_VERSION	3.0.5
+RUN npm install -g --unsafe-perm https://github.com/reasonml/reason-cli/archive/$REASONCLI_VERSION-bin-linux.tar.gz
 RUN npm install -g --unsafe-perm bs-platform
 
 USER developer

@@ -1,7 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER Koen De Keyser <koen.dekeyser@gmail.com>
 
-
 RUN apt-get update -q && apt-get install -y --no-install-recommends \
       software-properties-common \
       wget \
@@ -67,6 +66,9 @@ RUN mv chromedriver /usr/local/bin
 ENV REASONCLI_VERSION	3.0.5
 RUN npm install -g --unsafe-perm https://github.com/reasonml/reason-cli/archive/$REASONCLI_VERSION-bin-linux.tar.gz
 RUN npm install -g --unsafe-perm bs-platform
+
+RUN apt-get update -q && apt-get install -y --no-install-recommends \
+    ssh
 
 USER developer
 

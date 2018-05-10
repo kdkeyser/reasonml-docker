@@ -68,6 +68,7 @@ ENV REASONCLI_VERSION	3.1.0
 RUN npm install npm@latest -g
 RUN npm install -g --unsafe-perm reason-cli@$REASONCLI_VERSION-linux
 RUN npm install -g --unsafe-perm bs-platform
+RUN npm install -g --unsafe-perm yarn
 
 USER developer
 

@@ -24,7 +24,7 @@ docker exec -it reasonmldocker_dev_1 /bin/bash
 
 You now are logged in to the container as the developer user. 
 
-Useful tools:
+## Useful tools:
 
 - fish (nice terminal)
 - tmux (spit screen terminal)

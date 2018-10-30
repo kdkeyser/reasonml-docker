@@ -58,11 +58,12 @@ RUN mkdir /home/developer
 
 RUN chown developer /home/developer
 
-ENV VSCODE_VERSION	1.28.0
+ENV VSCODE_VERSION	1.28.2
 RUN wget --progress=bar:force -O /tmp/vscode.deb https://vscode-update.azurewebsites.net/$VSCODE_VERSION/linux-deb-x64/stable/
 
 RUN apt-get install -y --no-install-recommends \
-      gnupg
+      gnupg \
+      ocaml
 
 RUN dpkg -i /tmp/vscode.deb && rm /tmp/vscode.deb
 

@@ -58,7 +58,7 @@ RUN mkdir /home/developer
 
 RUN chown developer /home/developer
 
-ENV VSCODE_VERSION	1.28.2
+ENV VSCODE_VERSION	1.29.0
 RUN wget --progress=bar:force -O /tmp/vscode.deb https://vscode-update.azurewebsites.net/$VSCODE_VERSION/linux-deb-x64/stable/
 
 RUN apt-get install -y --no-install-recommends \

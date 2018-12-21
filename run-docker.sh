@@ -11,4 +11,4 @@ docker run -it \
        -e SSH_AUTH_SOCK=${SSH_AUTH_SOCK} \
        --ipc=host \
        --net=host \
-reasonml-docker /usr/bin/tmux
+reasonml-docker

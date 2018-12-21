@@ -94,6 +94,9 @@ RUN apt-get install -y --no-install-recommends \
 
 RUN locale-gen en_US.UTF-8
 
+# make fish the default shell
+RUN chsh -s /usr/bin/fish developer
+
 USER developer
 
 RUN echo 0 | code --install-extension freebroccolo.reasonml
@@ -102,5 +105,7 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
+#workaround for fish issue: https://github.com/fish-shell/fish-shell/issues/5180
+ENV USER developer
 
-
+ENTRYPOINT ["/usr/bin/tmux"]

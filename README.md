@@ -2,7 +2,7 @@
 
 Docker container with all tools/dependencies for ReasonML / React development using Visual Studio Code
 
-docker-compose is used as an easy way to build the container and apply some settings:
+The included bash script builds the container and runs it with a number of practical features enabled:
 
 - X forwarding, enables running X application in the container and get output on the X server running on the host. Useful for Visual Studio Code, Chrome, Firefox, ...
 - SSH forwarding to host system, and mapping your .gitconfig into the container: allows to use Git/SSH with the settings/keys from you host system, within the container
@@ -12,17 +12,9 @@ docker-compose is used as an easy way to build the container and apply some sett
 
 1. Build & run the container
 
-./run-docker-compose
+./run-docker.sh
 
-This script will expose some SSH related environment variables to the container
-
-2. Get a terminal on the running container
-
-In a different terminal, do:
-
-docker exec -it reasonmldocker_dev_1 /bin/bash
-
-You now are logged in to the container as the developer user. 
+You now are logged in to the container as the developer user. By default, tmux is running as the shell. 
 
 ## Useful tools:
 

@@ -43,7 +43,7 @@ RUN apt-get install -y --no-install-recommends \
       gpg-agent \
       libgconf-2-4
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 
@@ -58,7 +58,7 @@ RUN mkdir /home/developer
 
 RUN chown developer /home/developer
 
-ENV VSCODE_VERSION	1.29.0
+ENV VSCODE_VERSION	1.30.1
 RUN wget --progress=bar:force -O /tmp/vscode.deb https://vscode-update.azurewebsites.net/$VSCODE_VERSION/linux-deb-x64/stable/
 
 RUN apt-get install -y --no-install-recommends \
@@ -89,7 +89,18 @@ RUN npm install -g --unsafe-perm reason-cli@$REASONCLI_VERSION-linux
 RUN npm install -g --unsafe-perm bs-platform
 RUN npm install -g --unsafe-perm yarn
 
+RUN apt-get install -y --no-install-recommends \
+    locales
+
+RUN locale-gen en_US.UTF-8
+
 USER developer
 
 RUN echo 0 | code --install-extension freebroccolo.reasonml
+
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
+
 

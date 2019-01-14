@@ -11,7 +11,7 @@ RUN echo "tzdata tzdata/Areas select Europe" > /tmp/preseed.txt; \
     apt-get update -q && \
     apt-get install -y --no-install-recommends tzdata
 
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update -q && apt-get install -y --no-install-recommends \
       software-properties-common \
       wget \
       fish \
@@ -37,11 +37,12 @@ RUN apt-get install -y --no-install-recommends \
       git \
       gcc \
       g++ \
-      ssh
-
-RUN apt-get install -y --no-install-recommends \
+      ssh \
       gpg-agent \
-      libgconf-2-4
+      libgconf-2-4 \
+      gnupg \
+      ocaml \ 
+      locales
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -60,11 +61,6 @@ RUN chown developer /home/developer
 
 ENV VSCODE_VERSION	1.30.1
 RUN wget --progress=bar:force -O /tmp/vscode.deb https://vscode-update.azurewebsites.net/$VSCODE_VERSION/linux-deb-x64/stable/
-
-RUN apt-get install -y --no-install-recommends \
-      gnupg \
-      ocaml
-
 RUN dpkg -i /tmp/vscode.deb && rm /tmp/vscode.deb
 
 ENV SELENIUM_VERSION	3.14.0
@@ -88,9 +84,6 @@ RUN npm install npm@latest -g
 RUN npm install -g --unsafe-perm reason-cli@$REASONCLI_VERSION-linux
 RUN npm install -g --unsafe-perm bs-platform
 RUN npm install -g --unsafe-perm yarn
-
-RUN apt-get install -y --no-install-recommends \
-    locales
 
 RUN locale-gen en_US.UTF-8
 

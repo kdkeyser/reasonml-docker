@@ -59,7 +59,7 @@ RUN mkdir /home/developer
 
 RUN chown developer /home/developer
 
-ENV VSCODE_VERSION	1.30.1
+ENV VSCODE_VERSION	1.36.1
 RUN wget --progress=bar:force -O /tmp/vscode.deb https://vscode-update.azurewebsites.net/$VSCODE_VERSION/linux-deb-x64/stable/
 RUN dpkg -i /tmp/vscode.deb && rm /tmp/vscode.deb
 
